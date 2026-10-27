@@ -57,7 +57,7 @@ var query string = `COPY (
         FROM read_ndjson_auto('data/db/asn_collected.json')
         UNION ALL
         SELECT ASN, Handle, Description, CountryCode, Country, Origin, Category, NetworkRole,
-               'v6' as Family
+               'v6' as Family,
                unnest(IPv6)::INET as CIDR
         FROM read_ndjson_auto('data/db/asn_collected.json')
     ), with_gateway_broadcast AS (
